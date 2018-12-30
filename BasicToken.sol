@@ -76,6 +76,7 @@ contract BasicToken is owned {
         balanceOf[msg.sender] -= _value;
         totalSupply -= _value;
         emit Burn(msg.sender,_value);
+        return true;
     }
     
     
