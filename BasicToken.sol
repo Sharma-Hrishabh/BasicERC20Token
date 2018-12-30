@@ -27,6 +27,7 @@ contract BasicToken is owned {
     
     event Transfer(address indexed _from,address indexed _to,uint tokens);
     event Approval(address indexed _tokenOwner,address indexed _spender,uint tokens);
+    event Burn(address indexed _from,uint _value);
     
     
     constructor(string memory tokenName,string memory tokenSymbol,uint initialSupply) public {
@@ -68,6 +69,13 @@ contract BasicToken is owned {
         totalSupply += _mintedAmount;
         emit Transfer(owner,_target,_mintedAmount);
         
+    }
+    
+    function burn(uint _value) onlyOwner public returns(bool success) {
+        require(balanceOf[msg.sender]>=_value);
+        balanceOf[msg.sender] -= _value;
+        totalSupply -= _value;
+        emit Burn(msg.sender,_value);
     }
     
     
