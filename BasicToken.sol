@@ -63,6 +63,13 @@ contract BasicToken is owned {
         
     }
     
+    function mintTokens(address _target,uint _mintedAmount) onlyOwner public {
+        balanceOf[_target] += _mintedAmount;
+        totalSupply += _mintedAmount;
+        emit Transfer(owner,_target,_mintedAmount);
+        
+    }
+    
     
     
     
