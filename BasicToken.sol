@@ -1,6 +1,22 @@
 pragma solidity >=0.4.24;
 
-contract BasicToken{
+contract owned {
+    address public owner;
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function transferOwnership(address newOwner) onlyOwner public {
+        owner = newOwner;
+    }
+}
+
+contract BasicToken is owned {
     uint public totalSupply;
     string public name;
     string public symbol;
@@ -51,3 +67,6 @@ contract BasicToken{
     
     
 }
+
+
+
